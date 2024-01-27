@@ -1,10 +1,10 @@
+#!/usr/bin/env python3
 import sys
 import urllib3
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import time
 import argparse
-from urllib.parse import urlparse
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
