@@ -109,9 +109,6 @@ def crawl(url):
             else:
                 CRAWLED.add(current_url)
 
-    end_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    print(f"Script end at: {end_time}")
-
 def get_title(url):
     try:
         html = request(url)
