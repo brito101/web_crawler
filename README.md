@@ -31,5 +31,5 @@ After a successful installation, you can call web_crawler directly from any term
 
 ## Usage:
 
-- `python3 web_crawler.py domain`
-- Ex: `python3 web_crawler.py google.com`
+- `web_crawler domain`
+- Ex: `web_crawler rodrigobrito.dev.br`
