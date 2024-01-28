@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+import logging
 import sys
 import urllib3
-from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import time
 import argparse
@@ -28,7 +28,8 @@ BANNER = """
  ╚═══██╗██╔══██╗ ██║   ██║   ████╔╝██║                                                      
 ██████╔╝██║  ██║ ██║   ██║   ╚██████╔╝        
 
-github: https://github.com/brito101
+author: https://www.rodrigobrito.dev.br
+github: https://github.com/brito101/web_crawler
 """
 
 
@@ -46,8 +47,8 @@ def parse_arguments():
 
 def determine_url_properties(url):
     try:
-        for prefix in ["https://www.", "http://www.", "https://", "http://"]:
-            full_url = f"{prefix}{url}"
+        for scheme in ["https://www.", "http://www.", "https://", "http://"]:
+            full_url = f"{scheme}{url}"
             http = urllib3.PoolManager()
             response = http.request(
                 "GET",
@@ -58,9 +59,9 @@ def determine_url_properties(url):
 
             if response.status == 200:
                 print(f"Status code for {full_url}: {response.status}")
-                return prefix, True if "www." in prefix else False
+                return scheme, True if "www." in scheme else False
 
-    except urllib3.exceptions.HTTPError as e:
+    except urllib3.exceptions.HTTPError:
         return None, None
 
 
@@ -102,6 +103,7 @@ def get_links(html):
                 print(f"Title: {title} | Link: {link}")
         return links
     except Exception as e:
+        logging.exception(e)
         pass
 
 
@@ -136,6 +138,7 @@ def get_title(url):
         title_tag = soup.find("title")
         return title_tag.text.strip() if title_tag else None
     except Exception as e:
+        logging.exception(e)
         pass
 
 
